@@ -1,5 +1,6 @@
 # Initialization
 Remember to set up:
+- django/env/
 - .env.dev
 - .env.prod
 - .env.staging
