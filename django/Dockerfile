@@ -2,7 +2,8 @@
 FROM python:3.9.6-alpine
 
 # set work directory
-WORKDIR /src/django
+ENV DJANGO_DIR=/django
+WORKDIR $DJANGO_DIR
 
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -19,11 +20,11 @@ RUN pip install -r requirements.txt
 
 # copy entrypoint.sh
 COPY ./entrypoint.sh .
-RUN sed -i 's/\r$//g' /src/django/entrypoint.sh
-RUN chmod +x /src/django/entrypoint.sh
+RUN sed -i 's/\r$//g' $DJANGO_DIR/entrypoint.sh
+RUN chmod +x $DJANGO_DIR/entrypoint.sh
 
-# copy project
-COPY . .
+# copy django folder
+COPY . $DJANGO_DIR
 
 # run entrypoint.sh
-ENTRYPOINT ["/src/django/entrypoint.sh"]
+ENTRYPOINT ["/django/entrypoint.sh"]
