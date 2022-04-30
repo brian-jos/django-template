@@ -18,13 +18,5 @@ RUN pip install --upgrade pip
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt
 
-# copy entrypoint.sh
-COPY ./entrypoint.sh .
-RUN sed -i 's/\r$//g' $DJANGO_DIR/entrypoint.sh
-RUN chmod +x $DJANGO_DIR/entrypoint.sh
-
 # copy django folder
 COPY . $DJANGO_DIR
-
-# run entrypoint.sh
-ENTRYPOINT ["/django/entrypoint.sh"]
